@@ -56,7 +56,21 @@ vegmap <- rast(veg) #from terra
 plot(vegmap)
 points(pres)
 
+#same with precipitation
+prec <- system.file('external/precipitation.asc', package='sdm') 
+precmap <- rast(prec) #from terra
+plot(precmap)
+points(pres)
 
+par(mfrow=c(2,2)) #1 row and 4 columns
+plot(elevmap)
+points(pres)
+plot(tempmap)
+points(pres)
+plot(vegmap)
+points(pres)
+plot(precmap)
+points(pres)
 
 
 
