@@ -33,6 +33,8 @@ densityPlot(timemac, rug=TRUE)
 overlapPlot(timetig, timemac)
 #the colored part is the overlap
 
+# adding a legend
+legend('topright', c("Tigers", "Macaques"), lty=c(1,2), col=c("black","blue"), bty='n')
 
 
 
