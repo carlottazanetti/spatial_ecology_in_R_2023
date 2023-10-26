@@ -9,9 +9,11 @@ install.packages("devtools")
 devtools::install_github("ducciorocchini/imageRy")
 
 library(imageRy)
-library(devtools)
+library(devtools) #to install from github
 
 # import the different data we're going to use
 # b2 refers to band 2
 b2 <- im.import("sentinel.dolomites.b2.tif")
 b2
+
+
