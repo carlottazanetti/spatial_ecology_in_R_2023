@@ -60,12 +60,12 @@ library(ggplot2)
 library(patchwork)
 
 # Final bar plot displaying the results
-p1 <- ggplot(results, aes(x=class, y=percentage_1992, color=class)) + geom_bar(stat="identity", fill="white")
-p2 <- ggplot(results, aes(x=class, y=percentage_2006, color=class)) + geom_bar(stat="identity", fill="white")
+p1 <- ggplot(results, aes(x=classes, y=y1992, color=classes)) + geom_bar(stat="identity", fill="white")
+p2 <- ggplot(results, aes(x=classes, y=y2006, color=classes)) + geom_bar(stat="identity", fill="white")
 p1+p2
 
-p1 <- ggplot(results, aes(x=class, y=percentage_1992, color=class)) + geom_bar(stat="identity", fill="white")+ylim(c(0,100))
-p2 <- ggplot(results, aes(x=class, y=percentage_2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
+p1 <- ggplot(results, aes(x=classes, y=y1992, color=classes)) + geom_bar(stat="identity", fill="white")+ylim(c(0,100))
+p2 <- ggplot(results, aes(x=classes, y=y2006, color=classes)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
 p1+p2
 
 
