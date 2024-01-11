@@ -1,5 +1,9 @@
 # This is a script to visualize satellite data
+# colors are representing the amount of reflectance of a pixel in a certain wavelenght
+# plants fro example use mostly red light to carry out photosynthesis
 
+# to install packages from the CRAN
+install.packages("devtools")
 library(devtools) # packages in R are also called libraries
 
 # install the imageRy package from GitHub
