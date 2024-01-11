@@ -1,0 +1,79 @@
+install.packages('rmarkdown')
+
+%then open a markdown file
+title: "test"
+author: "Carlotta Zanetti"
+date: "2024-01-08"
+output: html_document
+---
+
+%press knit to see the result of the code
+%then delete everything and write:
+
+# RMarkDown file! %it's the title
+Here you can write something
+
+%now let's add the code
+```{r, eval=T}
+2+2=4
+```
+%eval=T means that u print out the output
+
+%let's try to use proper code:
+```{r, eval=T}
+library(imageRy)
+```
+```{r, eval=T}
+im.list()
+```
+```{r, eval=T}
+mato1992 <-im.import("matogrosso_l5_1992219_lrg.jpg" )
+```
+```{r, eval=T}
+mato2006 <-im.import("matogrosso_ast_2006209_lrg.jpg")
+```
+in order to have the infrmation about the object, just type the name of the object
+mato1992
+##RGB
+
+```{r, eval=T}
+im.plotRGB(mato1992, r=2, g=1, b=3)
+```
+This is with true colors. If you want to use the NIR on top of the green channel, you will have to write g=8, instead of g=2
+```{r, eval=T}
+im.plotRGB(mato1992, r=2, g=1, b=3)
+```
+If the programme gives you warning, it's because of eco.
+So you can turn it down
+```{r, eval=T, warning=F}
+mato1992 <-im.import("matogrosso_l5_1992219_lrg.jpg" )
+```
+```{r, eval=T, warning=F}
+mato2006 <-im.import("matogrosso_ast_2006209_lrg.jpg")
+```
+Now let's plot 4 images
+```{r, eval=T}
+par(mfrow=c(2,2))
+im.plotRGB(mato1992, 1,2,3)
+im.plotRGB(mato1992, 2,1,3)
+im.plotRGB(mato1992, 3,2,1)
+im.plotRGB(mato1992, 1,3,1)
+```
+Calculating spectral indices:
+```{r, eval=T}
+dvi <- mato1992[[1]]-mato1992[[2]]
+viridisc <- colorRampPalette(viridisc(7))(255)
+plot(dvi,col=viridisc)
+```
+
+```{r, eval=T}
+im.list()
+```
+
+```{r, eval=T}
+mato2006 <-im.import("matogrosso_ast_2006209_lrg.jpg")
+```
+
+```{r, eval=T}
+im.plotRGB(mato2006, 2, 1, 3)
+```
