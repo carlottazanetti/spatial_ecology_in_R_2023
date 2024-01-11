@@ -4,7 +4,7 @@
 
 \title{This is not my first document in LaTeX :O}
 \author{Carlotta Zanetti }
-%\date{December 2023}
+\date{December 2023}
 %if u don't want the date u can put 
 %\date{}
 
@@ -25,9 +25,29 @@ Betelgeuse is a red supergiant star about 700 light-years away that serves as th
 Given its intense luminosity, Betelgeuse is what astronomers call a first magnitude star. Set to pass between the star and Earth is Leona, a slightly oval-shaped asteroid located between the orbits of Mars and Jupiter. Leona is estimated to be about 50 miles (80 kilometers) by 34 miles (55 kilometers) in size.
 %u can use \noindent
 
-
 \section{Methods}
-For this thesis I made use of following formula:
+\subsection{Study area} % itemize
+The device makes use of the way that a liquid’s boiling point increases with pressure. 
+
+%elenco con punti
+\noindent The main characteristics of the study area are:
+\begin{itemize} 
+    \item Elevation: 3000 meters
+    \item Precipitations: n mm per year
+    \item Meam Annual Temperature: 12 degrees
+\end{itemize}
+
+%elenco con numeri
+\noindent The main characteristics of the study area are:
+\begin{enumerate}
+    \item Elevation: 3000 meters
+    \item Precipitations: n mm per year
+    \item Meam Annual Temperature: 12 degrees
+\end{enumerate}
+
+\subsection{Statistical analysis}
+The calculation done in this manuscript can be viewed in Equation \ref{eq Newton}
+
 \begin{equation}
     a = b + c \label{eq easy}
 \end{equation}
@@ -38,7 +58,6 @@ As we have seen in eq \ref{eq Newton}. Also we have eq \ref{eq easy}. \\
 As we have seen in section \ref{secIntro}
 
 \section{Results}
-
 The final output will look like that of fig \ref{figNonOrientable}
 
 \begin{figure}
@@ -51,33 +70,9 @@ The final output will look like that of fig \ref{figNonOrientable}
 \section{Discussion}
 You discuss your results compared to the ones already existing
 
-%vai a vedere la latex presentation sul suo github
-%\begin{frame}{text plus figure}
-%The final result bla bla bla is represented in the following figure. \\
-%\includegraphics[windth=0.7 \textwidth]{prova.jpg}
-    
-%\end{frame}
-
-\begin{frame}{Columns in beamer}
-    \begin{columns}
-    \column{0.5\textwidth}
-        \centering
-        This is column one with 0.75 text width.
-    \column{0.5\textwidth}
-        \centering
-        This is column two with 0.25 text width.
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Columns in beamer}
- \begin{columns}
-   \column{0.5\textwidth} 
-   Text here bla bla
-   \column{0.5\textwidth} 
-   Another text bla bla
- \end{columns}
-    
-\end{frame}
-
+\begin{thebibliography}{999}
+    \bibitem[Yoccoz et al.(2021)]{yoccoz2001}
+    Yoccoz, N. G., Nichols, J. D., \& Boulinier, T. (2001). Monitoring of biological diversity in space and time. Trends in Ecology \& Evolution, 16(8), 446-453.
+\end{thebibliography}
 
 \end{document}
