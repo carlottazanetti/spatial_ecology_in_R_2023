@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref} %so when u click on the ref it goes there
+
+\title{This is not my first document in LaTeX :O}
+\author{Carlotta Zanetti }
+%\date{December 2023}
+%if u don't want the date u can put 
+%\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents{}
+
+\begin{abstract}
+Dorian’s obsession with the beautiful and pure concept of Sybil Vane, an image somewhat like his own, drives him to declare his eternal love for her due to her overly romantic and incredibly tragic depictions of love on stage. Inspired by Lord Henry, Dorian decides to put aside his prior naivety and develops a new “passion for sensations” that he has never experienced before, becoming “filled with a wild desire to know everything about life” (Wilde 44). It is in this state of mind that he first encounters Sybil Vane, who he depicts as “the loveliest thing [he] had ever seen in [his] life,” promptly falling in love with her beauty and the intensity of her passionate performances (Wilde 46). The uncanny similarity between the two speaks to their mutual fascination with each other, as they both appear young, beautiful, and entirely naïve and ignorant of the world around them. When they interact for the first time, Dorian admits to Lord Henry that “they stood looking at each other like children,” with both of them appearing as though “rather nervous” and unsure as to how to behave in a real-life setting (Wilde 48). Although raised in vastly different social circles, both Sybil and Dorian grew up sheltered from reality
+\end{abstract}
+
+\section{Introduction} \label{secIntro}
+Betelgeuse is a red supergiant star about 700 light-years away that serves as the shoulder in the Orion constellation, according to NASA.
+
+\smallskip
+Given its intense luminosity, Betelgeuse is what astronomers call a first magnitude star. Set to pass between the star and Earth is Leona, a slightly oval-shaped asteroid located between the orbits of Mars and Jupiter. Leona is estimated to be about 50 miles (80 kilometers) by 34 miles (55 kilometers) in size.
+%u can use \noindent
+
+
+\section{Methods}
+For this thesis I made use of following formula:
+\begin{equation}
+    a = b + c \label{eq easy}
+\end{equation}
+\begin{equation}
+F = \sqrt[3]{ G \times \frac{m_1 \cdot m_2}{r^2} } \label{eq Newton}
+\end{equation}
+As we have seen in eq \ref{eq Newton}. Also we have eq \ref{eq easy}. \\
+As we have seen in section \ref{secIntro}
+
+\section{Results}
+
+The final output will look like that of fig \ref{figNonOrientable}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{prova.jpg}
+    \caption{A non orientable surface}
+    \label{figNonOrientable}
+\end{figure}
+
+\section{Discussion}
+You discuss your results compared to the ones already existing
+
+%vai a vedere la latex presentation sul suo github
+%\begin{frame}{text plus figure}
+%The final result bla bla bla is represented in the following figure. \\
+%\includegraphics[windth=0.7 \textwidth]{prova.jpg}
+    
+%\end{frame}
+
+\begin{frame}{Columns in beamer}
+    \begin{columns}
+    \column{0.5\textwidth}
+        \centering
+        This is column one with 0.75 text width.
+    \column{0.5\textwidth}
+        \centering
+        This is column two with 0.25 text width.
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Columns in beamer}
+ \begin{columns}
+   \column{0.5\textwidth} 
+   Text here bla bla
+   \column{0.5\textwidth} 
+   Another text bla bla
+ \end{columns}
+    
+\end{frame}
+
+
+\end{document}
