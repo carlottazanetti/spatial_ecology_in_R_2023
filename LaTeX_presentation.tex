@@ -1,6 +1,6 @@
 \documentclass{beamer}
 \usepackage{listings}
-% 
+% to choose the documentclass and theme
 % https://mpetroff.net/files/beamer-theme-matrix/
 \usetheme{Warsaw} % Frankfurt | Warsaw
 \usecolortheme{dove} %crane  dove dolphin beaver dove
@@ -9,16 +9,16 @@
 % 
 % plot(inputtable)
 
-\title{Choose your preferred title}
- \subtitle{beamer}
- \author{Duccio Rocchini, The PhD students}
+\title{Yo Title}
+ \subtitle{how does it look}
+ \author{Carlotta Zanetti}
  \institute{
  Alma Mater Studiorum UniBO\\
  \bigskip
- \includegraphics[width=0.3\textwidth]{satellite2.jpeg}
+ \includegraphics[width=0.3\textwidth]{giove.jpg}
  }
 
-\begin{document}
+ \begin{document}
 \maketitle
 
 \AtBeginSection[] % Do nothing for \section*
@@ -35,33 +35,22 @@
     \texttt{My first text here!!}
 \end{frame}
 
-\begin{frame}{My very first slide in LaTeX: hoorray!!}
-    \scriptsize{My first text here!!}
-\end{frame}
-
-\begin{frame}{My very first slide in LaTeX: hoorray!!}
-    \tiny{My first text here!!}
-\end{frame}
-
-
-
-\begin{frame}{My very first slide in LaTeX: hoorray!!}
+\begin{frame}{My not very first slide in LaTeX: hoorray!!}
     My first text here!! \\
-    Here write the second sentence. \\
+    \bigskip
+    \tiny{Here write the second sentence.} \\
+    \bigskip
     Third sentence here.
 \end{frame}
 
-
-\begin{frame}{My very first slide in LaTeX: hoorray!!}
+\begin{frame}{My definetly not very first slide in LaTeX: hoorray!!}
     My first text here!! \\
-    \bigskip
     Here write the second sentence. \\
-    \bigskip
     Third sentence here.
 \end{frame}
 
 \subsection{Itemizing}
-
+%you can put all the 3 elements of the list in the slide
 \begin{frame}
  \frametitle{Itemizing}
  \begin{itemize}
@@ -71,7 +60,7 @@
  \end{itemize}
 \end{frame}
 
-
+%you can put each element of the list in a single slide
 \begin{frame}
  \frametitle{Itemizing}
  \begin{itemize}
@@ -81,6 +70,7 @@
  \end{itemize}
 \end{frame}
 
+%they appear one at the time in the slide
 \begin{frame}
  \frametitle{Itemizing}
  \begin{itemize}
@@ -90,63 +80,54 @@
  \end{itemize}
 \end{frame}
 
-
-
-\begin{frame}{Itemizing}
-\begin{itemize}
-    \item first item
-    \item second item: I love ecology
-    \item I love Biol Geol Env Sci
-\end{itemize}
-\end{frame}
-
+%same but tiny
 \begin{frame}{Itemizing}
 \begin{itemize}
 \tiny{
     \item<1-> first item
     \item<2-> second item: I love ecology
-    \item<3-> love Biol Geol Env Sci
-}
+    \item<3-> love Biol Geol Env Sci}
 \end{itemize}
 \end{frame}
 
 \section{Figures}
 \begin{frame}{Adding a figure}
 \centering
- \includegraphics[width=0.9\textwidth]{satellite2.jpeg}
+ \includegraphics[width=0.9\textwidth]{giove.jpg}
+\end{frame}
+
+%2 figures
+\begin{frame}{Adding a figure}
+\centering
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+\end{frame}
+
+%4 figures
+\begin{frame}{Adding a figure}
+\centering
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+ \includegraphics[width=0.4\textwidth]{giove.jpg}\\
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+  \includegraphics[width=0.4\textwidth]{giove.jpg}\\
 \end{frame}
 
 \begin{frame}{Adding a figure}
 \centering
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
-\end{frame}
-
-\begin{frame}{Adding a figure}
-\centering
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}\\
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
-  \includegraphics[width=0.4\textwidth]{satellite2.jpeg}\\
-\end{frame}
-
-\begin{frame}{Adding a figure}
-\centering
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}\\
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+ \includegraphics[width=0.4\textwidth]{giove.jpg}\\
  \bigskip
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
-  \includegraphics[width=0.4\textwidth]{satellite2.jpeg}\\
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+  \includegraphics[width=0.4\textwidth]{giove.jpg}\\
 \end{frame}
-
 
 \begin{frame}{Adding a figure}
 \centering
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}\\
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+ \includegraphics[width=0.4\textwidth]{giove.jpg}\\
  \smallskip
- \includegraphics[width=0.4\textwidth]{satellite2.jpeg}
-  \includegraphics[width=0.4\textwidth]{satellite2.jpeg}\\
+ \includegraphics[width=0.4\textwidth]{giove.jpg}
+  \includegraphics[width=0.4\textwidth]{giove.jpg}\\
 \end{frame}
 
 \section{Formulas}
@@ -164,7 +145,6 @@ Let's experience the easiness of writing difficult formulas:
 K_{\alpha}=\frac{1}{\left( \sum_{i=1}^{N} p_i \times p_i^{\alpha-1} \right)^{\frac{1}{\alpha-1}}} 
 \end{equation}
 \end{frame}
-
 
 \begin{frame}{Formulaaaaaaaas!}
 Bla bla bla I love formulas, especially into my sentences
@@ -188,12 +168,13 @@ $H' = - \sum_{i=1}^{N} p_i \times \log{p_i}$ and blablabla again
     \end{equation}
 \end{frame}
 
+%showing the code
 \begin{frame}{The code!}
-    \lstinputlisting[language=R]{list2.r}
+    \lstinputlisting[language=R]{listname.r}
 \end{frame}
 
 \begin{frame}{The code!}
-    \lstinputlisting[language=R]{list2.r} \\
+    \lstinputlisting[language=R]{listname.r} \\
     \bigskip
     This is the function of R we are using, where:
     \begin{itemize}
@@ -207,8 +188,9 @@ $H' = - \sum_{i=1}^{N} p_i \times \log{p_i}$ and blablabla again
     The final result achieved was that represented in the following figure.\\
     % \smallskip
     \bigskip
-    \includegraphics[width=0.7 \textwidth]{andromeda.png}
+    \includegraphics[width=0.7 \textwidth]{giove.jpg}
 \end{frame}
+
 \begin{frame}{Columns in beamer}
     \begin{columns}
         \column{0.5\textwidth}
@@ -227,10 +209,9 @@ $H' = - \sum_{i=1}^{N} p_i \times \log{p_i}$ and blablabla again
         Text here
         \column{0.5\textwidth}
         \centering
-        \includegraphics[width=.8\textwidth]{andromeda.png}
+        \includegraphics[width=.8\textwidth]{giove.jpg}
     \end{columns}
 \end{frame}
 
 
-
- \end{document}
+\end{document}
