@@ -16,6 +16,7 @@
 # 09 Classification
 # 10 Variability
 # 11 Principal Component Analysis
+# useful functions
 
 #--------------------
 
@@ -48,6 +49,7 @@ plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20, cex=2,
 install.packages('sp')
 library(sp)
 
+#--------------------
 
 # 02.1 POPULATION DENSITY
 # code related to population ecology
@@ -118,6 +120,7 @@ plot(bei)
 plot(density_map)
 plot(elev)
 
+#--------------------
 
 # 02.2 POPULATION DISTRIBUTION
 #why populations disperse over the landscape in a certain manner?
@@ -195,6 +198,8 @@ points(pres)
 plot(precmap)
 points(pres)
 
+#--------------------
+
 
 # 03.1 COMMUNITY MULTIVARIANCE ANALYSIS
 library(vegan)
@@ -238,6 +243,7 @@ plot(ord)
 #the 2 dimensions are the x in multivariant analysis
 #but species are also related in time, not only in space
 
+#--------------------
 
 # 03.2 COMMUNITIES OVERLAP
 #we will deal with relation among species in time
@@ -277,6 +283,7 @@ overlapPlot(timetig, timemac)
 # adding a legend
 legend('topright', c("Tigers", "Macaques"), lty=c(1,2), col=c("black","blue"), bty='n')
 
+#--------------------
 
 # 04 REMOTE SENSING DATA VISUALISATION
 # This is a script to visualize satellite data
@@ -377,6 +384,7 @@ pairs(stacksent)
 #the values on the axes are reflectance
 #the green histogram is the frequency of every value of reflectance: in almost all the bands you have more values with low reflectance.
 
+#--------------------
 
 # 05 SPECTRAL INDICES
 #vegetation indices
@@ -440,6 +448,7 @@ plot(ndvi2006, col = cl)
 # we can use a function to calculate DVI and NDVI to speed up calculation
 ndvi2006a <- im.ndvi(m2006, 1, 2) # the numbers refer to the bands you want to use
 
+#--------------------
 
 # 06 TIMESERIES
 #time series analysis
@@ -503,6 +512,7 @@ im.plotRGB(stackg, r=1, g=2, b=3)
 #In the north u have green, so T was higher in 2005
 #the middle is blue so T was higher in 2010
 
+#--------------------
 
 # 07 EXTERNAL DATA
 #external data
@@ -535,6 +545,7 @@ plot(najadif, col=cl)
 crater <- rast('tenoumer_ast_2008024_lrg.jpg') #ignora il messaggio di avvertimento
 plotRGB(crater, r=1, g=2, b=3)
 
+#--------------------
 
 #08 COPERNICUS DATA
 #with copernicus u can search for a specific year
@@ -565,6 +576,7 @@ plot(veg_poland[[1]], col=cl)
 surf_soil_moist2023_24 <- rast("c_gls_SSM1km_202311240000_CEURO_S1CSAR_V1.2.1.nc")
 surf_soil_moisture2023_24_crop <- crop(surf_soil_moisture2023_24, ext)  # gives error becase probabli in this image there's nothing at the selected ext
 
+#--------------------
 
 # 09 CLASSIFICATION
 #Classifying satellite immages and estimate the amount of change
@@ -618,7 +630,7 @@ percentage_2006
 
 # Let's build a table with the results
 classes <- c('human', 'forest')
-y1992 <- c(17, 83)    # percentages for the two classes in thta year
+y1992 <- c(17, 83)    # percentages for the two classes in that year
 y2006 <- c(54, 45)
 
 #build a table
@@ -626,7 +638,9 @@ results <- data.frame(classes, y1992, y2006)
 results
 
 library(ggplot2)
+#https://cran.r-project.org/web/packages/ggplot2/index.html
 library(patchwork)
+#https://cran.r-project.org/web/packages/patchwork/index.html
 
 # Final bar plot displaying the results
 p1 <- ggplot(results, aes(x=classes, y=y1992, color=classes)) + geom_bar(stat="identity", fill="white")
@@ -637,6 +651,108 @@ p1 <- ggplot(results, aes(x=classes, y=y1992, color=classes)) + geom_bar(stat="i
 p2 <- ggplot(results, aes(x=classes, y=y2006, color=classes)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
 p1+p2
 
+#--------------------
+
+# 10 VARIABILITY
+library(imageRy)
+library(terra)
+library(viridis)
+#https://cran.r-project.org/web/packages/viridis/index.html
+
+im.list()
+
+glacier <- im.import("sentinel.png")
+
+# b1=NIR, b2=red, b3=green
+im.plotRGB(glacier, r=1, g=2, b=3)
+im.plotRGB(glacier, r=2, g=1, b=3)
+
+# varibility (in our case as standard deviation) can be calculated only on one variable
+# we can use the NIR as an example
+nir <- glacier[[1]]
+plot(nir)
+
+# let's use a moving window
+# the matrix describes the dimensions of the moving window: composed by 9 pixels (1/9) distributed as 3 by 3
+# "fun" call the function
+sd_glacier <- focal(nir, matrix(1/9, 3, 3), fun=sd)
+viridisc <- colorRampPalette(viridis(7))(255)
+plot(sd_glacier, col=viridisc)
+
+#exercise: calculate variability in 7x7 moving window
+sd_glacier2 <- focal(nir, matrix(1/49, 7, 7), fun=sd)
+plot(sd_glacier2,col=cl_vir)
+
+#plot both of them
+par(mfrow = c(1, 2))
+plot(sd_glacier, col=cl_vir)
+plot(sd_glacier2,col=cl_vir)
+#with the 3x3 it's a very local calculation, u can see subtle differences. If u enlarge the moving window, u will enlarge the number of pixels
+#so this is why u have a higher variability
+
+#original and 7x7
+par(mfrow = c(1, 2))
+im.plotRGB(glacier, r=2, g=1, b=3)
+plot(sd_glacier2,col=cl_vir)
+#u have a high std in boundaries, bc the pixel on the boundary will be different from the surrounding ones. 
+#so it can indicate high geological variability
+
+#--------------------
+
+# 11 PRINCIPAL COMPONENT ANALYSIS
+#so we take the sentinel data, but istead of using only one band, we do the Principal component analysis
+
+library(imageRy)
+library(terra)
+library(viridis)
+
+dev.off()
+
+sent <- im.import('sentinel.png')
+
+pairs(sent)
+#sentinel_2 and sentinel_3 are red and green and they are really correlated to each other, the p value is 0.98 and
+#the graph is like a disk, so high correlation. The nir is less correlated to the red one, the graph is a mess and p is like 0.3.
+#don't look at NA, is a constant
+
+#perform PCA on sent
+sentpc <-  im.pca2(sent)
+#if it doesn't work use im.pca()
+#it gives u the percentage of each pc. The first oc is 77
+#in this case there is no meaning for the color, it's jsut a scale
+
+pc1 <- sentpc$PC1
+plot(pc1)
+
+cl_vir <- colorRampPalette(viridis(7))(255)
+plot(pc1, col=cl_vir)
+
+#calculating std on top of pc1
+pc1sd3 <- focal(pc1, matrix(1/9,3,3), fun=sd)
+plot(pc1sd3, col=cl_vir)
+#so instead of having to choose a specific band, you just do it on the first pc
+
+
+pc1sd7 <- focal(pc1, matrix(1/49,7,7), fun=sd)
+plot(pc1sd7, col=cl_vir)
+
+#so instead of having to choose a specific band, you just do it on the first pc:
+par(mfrow = c(2,3))
+im.plotRGB(sent, 2, 1, 3)
+plot(sd_glacier, col=cl_vir) #sd in NIR that we did last time
+plot(sd_glacier2,col=cl_vir) #sd in NIR that we did last time
+plot(pc1, col=cl_vir)
+plot(pc1sd3, col=cl_vir)
+plot(pc1sd7, col=cl_vir)
+
+#we can also stack images in another way:
+sdstack <- c(sd_glacier,sd_glacier2,pc1sd3,pc1sd7)
+names(sdstack) <- c('sd3', 'sd7', 'pc1sd3', 'pc1sd7')
+plot(sdstack, col=cl_vir)
+#so previously we chose the NIR bc we knew we had to use that band, but what if we didn't know?
+#that's what the pc is for: inestead of choosing a specific band, you choose the pc1
+
+#--------------------
 
 #USEFUL FUNCTIONS
 c(1,2,3) #concatenates
@@ -666,10 +782,13 @@ im.ndvi(m2006, 1, 2) #function of imagery to plot the normalized difference vege
 im.plotRGB.auto(EN01) #function of imagery that will directly plot an rgb image using the first 3 bands
 setwd('C:/Users/carlo/Downloads') #set working directory
 sunc <- im.classify(sun, num_clusters=3) #function of imagery that divides in clusters that classify the energy of the picture
-
-
-
-
+f1992 <- freq(m1992_cluster) #it calculates the frequency of pixels of a certain class
+data.frame(classes, y1992, y2006)  #formatting the data into a table
+ggplot(results, aes(x=classes, y=y1992, color=classes)) + geom_bar(stat="identity", fill="white") #geom_bar counts the number of cases at each x position
+sd_glacier <- focal(nir, matrix(1/9, 3, 3), fun=sd) #the matrix describes the dimensions of the moving window: composed by 9 pixels (1/9) distributed as 3 by 3. fun calls he function
+sentpc <-  im.pca2(sent) #it gives you the variance explained by every pc
+sdstack <- c(sd_glacier,sd_glacier2,pc1sd3,pc1sd7) #stack graphs in the same plot
+names(sdstack) <- c('sd3', 'sd7', 'pc1sd3', 'pc1sd7') #corresponding titles
 
 
 
