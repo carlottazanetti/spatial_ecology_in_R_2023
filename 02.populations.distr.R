@@ -62,7 +62,7 @@ precmap <- rast(prec) #from terra
 plot(precmap)
 points(pres)
 
-par(mfrow=c(2,2)) #1 row and 4 columns
+par(mfrow=c(2,2)) 
 plot(elevmap)
 points(pres)
 plot(tempmap)
