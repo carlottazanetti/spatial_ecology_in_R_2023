@@ -93,9 +93,6 @@ scale_x_discrete(limits = months)
 
 
 
-
-
-
 #scegli due/tre anni e fai il confronto ispirati a greenland
 
 
