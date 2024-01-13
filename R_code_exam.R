@@ -4,6 +4,7 @@
 #Investigating seasonal variability
 library(terra)
 library(imageRy)
+library(ggplot2)
 #setting the working directory to be the folder where we have the downloaded data:
 setwd('C:/Users/carlo/Desktop/MONITORING ECOSYSTEMS/exam')
 
@@ -79,6 +80,16 @@ percentage_nov <- snow_nov * 100 / tot_nov
 percentage_nov
 
 # 41.46765, 38.80109, 24.3693, 15.6053, 9.677516, 5.250141
+#concatenating all the percentages of snow pixels in one vector (I just put 0 for the months where the snow cover is 0)
+snow_coverage <- c(percentage_jan, percentage_feb, percentage_mar, percentage_apr, percentage_may, 0, 0, 0, 0, 0, percentage_nov) 
+
+#building a table with the results
+months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov')
+results <- data.frame(months, snow_coverage) 
+results
+
+ggplot(results, aes(x=months, y=snow_coverage, color=months)) + geom_bar(stat="identity", fill="white") + 
+scale_x_discrete(limits = months) 
 
 
 
