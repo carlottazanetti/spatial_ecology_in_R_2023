@@ -3,6 +3,7 @@
 
 #Investigating seasonal variability
 library(terra)
+library(imageRy)
 #setting the working directory to be the folder where we have the downloaded data:
 setwd('C:/Users/carlo/Desktop/MONITORING ECOSYSTEMS/exam')
 
@@ -18,10 +19,66 @@ sept <- rast('sept.jpg')
 oct <- rast('oct.jpg')
 nov <- rast('nov.jpg')
 
+#stacking the images all together
 seasons <- c(jan,feb,mar,apr,may,jun,jul,aug,sept,oct,nov)
 
-par(mfrow = c(3,4))
-for i in
+#showing the images
+par(mfrow = c(4,3))
+for(i in seq(from = 1, to = 33, by = 3)) {plotRGB(seasons, i, i+1, i+2)}
+
+#dividing each image into 4 classes to detect snow
+#(only doing that for the images that have some snow cover)
+jan_cluster <- im.classify(jan, 4)
+feb_cluster <- im.classify(feb, 4)
+mar_cluster <- im.classify(mar, 4)
+apr_cluster <- im.classify(apr, 4)
+may_cluster <- im.classify(may, 4)
+nov_cluster <- im.classify(nov, 4)
+
+snow_clusters <- c(jan_cluster[[1]], feb_cluster[[1]], mar_cluster[[1]], apr_cluster[[1]],  may_cluster[[1]], nov_cluster[[1]])
+par(mfrow = c(3,2))
+plot(snow_clusters)
+
+#calculating the percentage of snow pixel
+#!the snow cluster is not the same value for every picture!
+#So the frequencies must be compared with the cluster images to unferstand which is the value correpsonding to snow
+freq_jan <- freq(jan_cluster[[1]])
+snow_jan <- freq_jan[[2,3]]
+tot_jan <- ncell(jan_cluster[[1]])
+percentage_jan <- snow_jan * 100 / tot_jan
+percentage_jan
+
+freq_feb <- freq(feb_cluster[[1]])
+snow_feb <- freq_feb[[3]][[3]]
+tot_feb <- ncell(feb_cluster[[1]])
+percentage_feb <- snow_feb * 100 / tot_feb
+percentage_feb
+
+freq_mar <- freq(mar_cluster[[1]])
+snow_mar <- freq_mar [[3]][[1]]
+tot_mar <- ncell(mar_cluster[[1]])
+percentage_mar <- snow_mar * 100 / tot_mar
+percentage_mar
+
+freq_apr <- freq(apr_cluster[[1]])
+snow_apr <- freq_apr[[3]][[1]]
+tot_apr <- ncell(apr_cluster[[1]])
+percentage_apr <- snow_apr * 100 / tot_apr
+percentage_apr
+
+freq_may <- freq(may_cluster[[1]])
+snow_may <- freq_may[[3]][[3]] 
+tot_may <- ncell(may_cluster[[1]])
+percentage_may <- snow_may * 100 / tot_may
+percentage_may
+
+freq_nov <- freq(nov_cluster[[1]])
+snow_nov <- freq_nov[[3]][[2]]
+tot_nov <- ncell(nov_cluster[[1]])
+percentage_nov <- snow_nov * 100 / tot_nov
+percentage_nov
+
+# 41.46765, 38.80109, 24.3693, 15.6053, 9.677516, 5.250141
 
 
 
