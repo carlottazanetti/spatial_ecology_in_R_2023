@@ -550,6 +550,7 @@ plotRGB(crater, r=1, g=2, b=3)
 #08 COPERNICUS DATA
 #with copernicus u can search for a specific year
 install.packages('ncdf4')
+#https://cran.r-project.org/web/packages/ncdf4/index.html
 # https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
 
 library(ncdf4)
