@@ -29,6 +29,7 @@ setwd('C:/Users/carlo/Desktop/MONITORING ECOSYSTEMS/exam')
 # 02 Investigating the snow seasonal cycle
 
 #Importing the images
+#Unfortunately no data available for december
 jan <- rast('jan.jpg')
 feb <- rast('feb.jpg')
 mar <- rast('march.jpg')
@@ -98,32 +99,34 @@ tot_nov <- ncell(nov_cluster[[1]])
 percentage_nov <- snow_nov * 100 / tot_nov
 percentage_nov
 
-# 41.46765, 38.80109, 24.3693, 15.6053, 9.677516, 5.250141
-#concatenating all the percentages of snow pixels in one vector (I just put 0 for the months where the snow cover is 0)
+#Concatenating all the percentages of snow pixels in one vector (I just put 0 for the months where the snow cover is 0)
 snow_coverage <- c(percentage_jan, percentage_feb, percentage_mar, percentage_apr, percentage_may, 0, 0, 0, 0, 0, percentage_nov) 
 
-#building a table with the results
+#Building a table with the results
 months <- c('jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'oct', 'nov')
 results <- data.frame(months, snow_coverage) 
 results
 
+#Plotting the results
 ggplot(results, aes(x=months, y=snow_coverage, color=months)) + geom_bar(stat="identity", fill="white") + 
 scale_x_discrete(limits = months) 
 
+#--------------------
 
+# 03 Investigating the change in snow cover throughout the years
 
-#scegli due/tre anni e fai il confronto ispirati a greenland
+#Importing the data
 apr2020 <- rast('apr2020.jpg')
 apr2022 <- rast('apr2022.jpg')
 apr2023 <- rast('apr2023.jpg')
-snow_cover <- c(apr2020[[1]], apr2022[[1]], apr2023[[1]])
+snow <- c(apr2020[[1]], apr2022[[1]], apr2023[[1]])
 
 #Plotting the data
  cl <- colorRampPalette(c('black','red','orange','yellow'))(100)
  par(mfrow = c(1,3))
- plot(snow_cover[[1]], col=cl, xlab='2020')
- plot(snow_cover[[2]], col=cl, xlab= '2022')
- plot(snow_cover[[3]], col=cl, xlab= '2023')
+ plot(snow[[1]], col=cl, xlab='2020')
+ plot(snow[[2]], col=cl, xlab= '2022')
+ plot(snow[[3]], col=cl, xlab= '2023')
  par(mfrow = c(1,3))
  plot(snow_cover[[1]], col=cl, xlab='apr 2020')
  plot(snow_cover[[2]], col=cl, xlab= 'apr 2022')
