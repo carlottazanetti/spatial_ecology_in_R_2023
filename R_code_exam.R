@@ -94,6 +94,23 @@ scale_x_discrete(limits = months)
 
 
 #scegli due/tre anni e fai il confronto ispirati a greenland
+apr2020 <- rast('apr2020.jpg')
+apr2022 <- rast('apr2022.jpg')
+apr2023 <- rast('apr2023.jpg')
+snow_cover <- c(apr2020[[1]], apr2022[[1]], apr2023[[1]])
+
+#Plotting the data
+ cl <- colorRampPalette(c('black','red','orange','yellow'))(100)
+ par(mfrow = c(1,3))
+ plot(snow_cover[[1]], col=cl, xlab='2020')
+ plot(snow_cover[[2]], col=cl, xlab= '2022')
+ plot(snow_cover[[3]], col=cl, xlab= '2023')
+ par(mfrow = c(1,3))
+ plot(snow_cover[[1]], col=cl, xlab='apr 2020')
+ plot(snow_cover[[2]], col=cl, xlab= 'apr 2022')
+ plot(snow_cover[[3]], col=cl, xlab= 'apr 2023')
+ pairs(snow_cover)
+ snowpc <-  im.pca2(snow_cover)
 
 
 
