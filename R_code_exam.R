@@ -1,15 +1,15 @@
 #Exploring the variability of snow in Iceland using Sentinel 2 data
 #Focusing on Fagradalsfjall region
 #All the data are downloaded from the Copernicus site
-#https://dataspace.copernicus.eu/browser/?zoom=9&lat=64.05298&lng=-21.79962&themeId=DEFAULT-THEME&visualizationUrl=https%3A%2F%2Fsh.dataspace.copernicus.eu%2Fogc%2Fwms%2Fa91f72b5-f393-4320-bc0f-990129bd9e63&datasetId=S2_L2A_CDAS&fromTime=2020-03-08T00%3A00%3A00.000Z&toTime=2020-03-08T23%3A59%3A59.999Z&layerId=2_TONEMAPPED_NATURAL_COLOR&demSource3D=%22MAPZEN%22&cloudCoverage=51&dateMode=SINGLE
+#https://link.dataspace.copernicus.eu/zxr
 
 #--------------------
 
 # Summary:
 # 01 Importing modules and setting the working directory
 # 02 Investigating the snow seasonal cycle 
-# 02 Investigating the change in snow cover throughout the years
-# 03 A remarkable phenomenon: Fagradalsfjall volcanic eruption
+# 03 Investigating the change in snow cover throughout the years
+# 04 A remarkable phenomenon: Fagradalsfjall volcanic eruption
 
 #--------------------
 
@@ -122,18 +122,19 @@ apr2023 <- rast('apr2023.jpg')
 snow <- c(apr2020[[1]], apr2022[[1]], apr2023[[1]])
 
 #Plotting the data
- cl <- colorRampPalette(c('black','red','orange','yellow'))(100)
+ cl <- colorRampPalette(c('black','blue','yellow'))(100)
  par(mfrow = c(1,3))
- plot(snow[[1]], col=cl, xlab='2020')
- plot(snow[[2]], col=cl, xlab= '2022')
- plot(snow[[3]], col=cl, xlab= '2023')
- par(mfrow = c(1,3))
- plot(snow_cover[[1]], col=cl, xlab='apr 2020')
- plot(snow_cover[[2]], col=cl, xlab= 'apr 2022')
- plot(snow_cover[[3]], col=cl, xlab= 'apr 2023')
- pairs(snow_cover)
- snowpc <-  im.pca2(snow_cover)
+ plot(snow[[1]], col=cl, xlab='apr 2020')
+ plot(snow[[2]], col=cl, xlab= 'apr 2022')
+ plot(snow[[3]], col=cl, xlab= 'apr 2023')
 
+#Plotting the difference between 2020 and 2023
+diff= snow[[1]] - snow[[3]]
+plot(diff, col=cl)
+title('Snow difference (2020-2023)')
+
+#Plotting an RGB with 2020 in the red channel, 2022 in the green channel, and 2023 in the blue channel
+im.plotRGB(snow, r=1, g=2, b=3)
 
 
 #some remarkable phenomena: volcanic eruption in Fagradalsfjall 
