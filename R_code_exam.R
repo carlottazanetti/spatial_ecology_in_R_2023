@@ -1,13 +1,34 @@
-#Exploring the variability of Iceland using Sentinel 2 data
-#prendi un anno e plotti l'immagine per ogni mese, poi usi m1992_cluster <- im.classify(m1992, 2) per vedere l'amount di neve e come calbia cos' puoi fare l'istogramma della seasonal var
+#Exploring the variability of snow in Iceland using Sentinel 2 data
+#Focusing on Fagradalsfjall region
+#All the data are downloaded from the Copernicus site
+#https://dataspace.copernicus.eu/browser/?zoom=9&lat=64.05298&lng=-21.79962&themeId=DEFAULT-THEME&visualizationUrl=https%3A%2F%2Fsh.dataspace.copernicus.eu%2Fogc%2Fwms%2Fa91f72b5-f393-4320-bc0f-990129bd9e63&datasetId=S2_L2A_CDAS&fromTime=2020-03-08T00%3A00%3A00.000Z&toTime=2020-03-08T23%3A59%3A59.999Z&layerId=2_TONEMAPPED_NATURAL_COLOR&demSource3D=%22MAPZEN%22&cloudCoverage=51&dateMode=SINGLE
 
-#Investigating seasonal variability
+#--------------------
+
+# Summary:
+# 01 Importing modules and setting the working directory
+# 02 Investigating the snow seasonal cycle
+# 02 Investigating the change in snow cover throughout the years
+# 03 A remarkable phenomenon: Fagradalsfjall volcanic eruption
+
+#--------------------
+
+# 01 Importing modules and setting the working directory
 library(terra)
+#terra package -> https://cran.r-project.org/web/packages/terra/
 library(imageRy)
+#imageRy package -> https://github.com/ducciorocchini/imageRy
 library(ggplot2)
+#ggplot2 package -> https://cran.r-project.org/web/packages/ggplot2/index.html
+
 #setting the working directory to be the folder where we have the downloaded data:
 setwd('C:/Users/carlo/Desktop/MONITORING ECOSYSTEMS/exam')
 
+#--------------------
+
+# 02 Investigating the snow seasonal cycle
+
+#Importing the images
 jan <- rast('jan.jpg')
 feb <- rast('feb.jpg')
 mar <- rast('march.jpg')
@@ -20,14 +41,12 @@ sept <- rast('sept.jpg')
 oct <- rast('oct.jpg')
 nov <- rast('nov.jpg')
 
-#stacking the images all together
+#Stacking the images all together
 seasons <- c(jan,feb,mar,apr,may,jun,jul,aug,sept,oct,nov)
-
-#showing the images
 par(mfrow = c(4,3))
 for(i in seq(from = 1, to = 33, by = 3)) {plotRGB(seasons, i, i+1, i+2)}
 
-#dividing each image into 4 classes to detect snow
+#Dividing each image into 4 classes to detect snow
 #(only doing that for the images that have some snow cover)
 jan_cluster <- im.classify(jan, 4)
 feb_cluster <- im.classify(feb, 4)
@@ -40,7 +59,7 @@ snow_clusters <- c(jan_cluster[[1]], feb_cluster[[1]], mar_cluster[[1]], apr_clu
 par(mfrow = c(3,2))
 plot(snow_clusters)
 
-#calculating the percentage of snow pixel
+#Calculating the percentage of snow pixel
 #!the snow cluster is not the same value for every picture!
 #So the frequencies must be compared with the cluster images to unferstand which is the value correpsonding to snow
 freq_jan <- freq(jan_cluster[[1]])
