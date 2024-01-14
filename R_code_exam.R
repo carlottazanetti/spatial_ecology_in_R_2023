@@ -136,8 +136,10 @@ title('Snow difference (2020-2023)')
 #Plotting an RGB with 2020 in the red channel, 2022 in the green channel, and 2023 in the blue channel
 im.plotRGB(snow, r=1, g=2, b=3)
 
+#--------------------
 
-#some remarkable phenomena: volcanic eruption in Fagradalsfjall 
+# 04 A remarkable phenomenon: Fagradalsfjall volcanic eruption
+
 #importing the image in true RBG colors
 iceland_eruption_trueRGB <- rast('iceland_eruption_trueRGB.jpg')
 plot(iceland_eruption_trueRGB)
@@ -147,25 +149,19 @@ b2.1 <- rast('iceland_eruption_2.1.jpg')
 b0.8 <- rast('iceland_eruption_0.8.jpg')
 b0.6 <- rast('iceland_eruption_0.6.jpg')
 
-#stacking images all together 
-stacksent <- c(b2.1[[1]], b0.8[[1]], b0.6[[1]])
-#choosing greyscale to show the 3 bands
-grayscale <- colorRampPalette(c("black", "gray", "light gray")) (100)
+#Stacking images all together 
+FalseRGB <- c(b2.1[[1]], b0.8[[1]], b0.6[[1]])
 
+#Choosing greyscale to show the 3 bands
+grayscale <- colorRampPalette(c("black", "gray", "light gray")) (100)
 par(mfrow = c(2,2))
 plot(iceland_eruption_trueRGB)
-plot(stacksent[[1]], col=grayscale)
-plot(stacksent[[2]], col=grayscale)
-plot(stacksent[[3]], col=grayscale)
+plot(FalseRGB[[1]], col=grayscale)
+plot(FalseRGB[[2]], col=grayscale)
+plot(FalseRGB[[3]], col=grayscale)
 
-#resetting the plot
+#Resetting the plot
 dev.off()
 
-#plotting the image in false RBG colors
-plotRGB(stacksent, r=1, g=2, b=3)
-
-
-
-
-
-
+#Plotting the image in false RBG colors
+plotRGB(FalseRGB, r=1, g=2, b=3)
