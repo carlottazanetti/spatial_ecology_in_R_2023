@@ -7,7 +7,7 @@
 
 # Summary:
 # 01 Importing modules and setting the working directory
-# 02 Investigating the snow seasonal cycle
+# 02 Investigating the snow seasonal cycle 
 # 02 Investigating the change in snow cover throughout the years
 # 03 A remarkable phenomenon: Fagradalsfjall volcanic eruption
 
