@@ -737,7 +737,6 @@ plot(pc1sd3, col=cl_vir)
 pc1sd7 <- focal(pc1, matrix(1/49,7,7), fun=sd)
 plot(pc1sd7, col=cl_vir)
 
-#so instead of having to choose a specific band, you just do it on the first pc:
 par(mfrow = c(2,3))
 im.plotRGB(sent, 2, 1, 3)
 plot(sd_glacier, col=cl_vir) #sd in NIR that we did last time
