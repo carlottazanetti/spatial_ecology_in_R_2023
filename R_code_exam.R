@@ -20,16 +20,28 @@ library(imageRy)
 #imageRy package -> https://github.com/ducciorocchini/imageRy
 library(ggplot2)
 #ggplot2 package -> https://cran.r-project.org/web/packages/ggplot2/index.html
+library(viridis)
+#viridis package -> https://cran.r-project.org/web/packages/viridis/index.html
+
+#N.B. if the packages are not installed use the following code:
+install.packages('terra')
+install.packages("devtools")
+library(devtools)
+devtools::install_github("ducciorocchini/imageRy")
+install.packages('ggplot2')
+install.packages('viridis')
 
 #setting the working directory to be the folder where we have the downloaded data:
 setwd('C:/Users/carlo/Desktop/MONITORING ECOSYSTEMS/exam')
+
 
 #--------------------
 
 # 02 Investigating the snow seasonal cycle
 
-#Importing the images
+#Importing the images (suppressing the warning message)
 #Unfortunately no data available for december
+suppressWarnings({
 jan <- rast('jan.jpg')
 feb <- rast('feb.jpg')
 mar <- rast('march.jpg')
@@ -40,7 +52,7 @@ jul <- rast('july.jpg')
 aug <- rast('aug.jpg')
 sept <- rast('sept.jpg')
 oct <- rast('oct.jpg')
-nov <- rast('nov.jpg')
+nov <- rast('nov.jpg')})
 
 #Stacking the images all together
 seasons <- c(jan,feb,mar,apr,may,jun,jul,aug,sept,oct,nov)
@@ -116,21 +128,25 @@ scale_x_discrete(limits = months)
 # 03 Investigating the change in snow cover throughout the years
 
 #Importing the data
+suppressWarnings({
 apr2020 <- rast('apr2020.jpg')
 apr2022 <- rast('apr2022.jpg')
-apr2023 <- rast('apr2023.jpg')
+apr2023 <- rast('apr2023.jpg')})
 snow <- c(apr2020[[1]], apr2022[[1]], apr2023[[1]])
 
 #Plotting the data
- cl <- colorRampPalette(c('black','blue','yellow'))(100)
- par(mfrow = c(1,3))
- plot(snow[[1]], col=cl, xlab='apr 2020')
- plot(snow[[2]], col=cl, xlab= 'apr 2022')
- plot(snow[[3]], col=cl, xlab= 'apr 2023')
+cl_vir <- colorRampPalette(viridis(7))(255)
+par(mfrow = c(1,3))
+plot(snow[[1]], col=cl_vir, xlab='apr 2020')
+plot(snow[[2]], col=cl_vir, xlab= 'apr 2022')
+plot(snow[[3]], col=cl_vir, xlab= 'apr 2023')
+
+#Resetting the plot
+dev.off()
 
 #Plotting the difference between 2020 and 2023
 diff= snow[[1]] - snow[[3]]
-plot(diff, col=cl)
+plot(diff, col=cl_vir)
 title('Snow difference (2020-2023)')
 
 #Plotting an RGB with 2020 in the red channel, 2022 in the green channel, and 2023 in the blue channel
@@ -141,13 +157,15 @@ im.plotRGB(snow, r=1, g=2, b=3)
 # 04 A remarkable phenomenon: Fagradalsfjall volcanic eruption
 
 #importing the image in true RBG colors
-iceland_eruption_trueRGB <- rast('iceland_eruption_trueRGB.jpg')
+suppressWarnings({
+iceland_eruption_trueRGB <- rast('iceland_eruption_trueRGB.jpg')})
 plot(iceland_eruption_trueRGB)
 
 #Importing the image in the 3 bands of interest (2.1 microns -> SWIR, 0.8 microns -> NIR, 0.6 microns -> visible)
+suppressWarnings({
 b2.1 <- rast('iceland_eruption_2.1.jpg')
 b0.8 <- rast('iceland_eruption_0.8.jpg')
-b0.6 <- rast('iceland_eruption_0.6.jpg')
+b0.6 <- rast('iceland_eruption_0.6.jpg')})
 
 #Stacking images all together 
 FalseRGB <- c(b2.1[[1]], b0.8[[1]], b0.6[[1]])
@@ -157,11 +175,28 @@ grayscale <- colorRampPalette(c("black", "gray", "light gray")) (100)
 par(mfrow = c(2,2))
 plot(iceland_eruption_trueRGB)
 plot(FalseRGB[[1]], col=grayscale)
+title('2.1 microns')
 plot(FalseRGB[[2]], col=grayscale)
+title('0.8 microns')
 plot(FalseRGB[[3]], col=grayscale)
+title('0.6 microns')
 
 #Resetting the plot
 dev.off()
 
 #Plotting the image in false RBG colors
 plotRGB(FalseRGB, r=1, g=2, b=3)
+
+#Performing PCA on FalseRGB
+pc <-  im.pca2(FalseRGB)
+
+#Calculating std on top of pc1
+pc1 <- pc$PC1
+pc1sd3 <- focal(pc1, matrix(1/9,3,3), fun=sd)
+cl_vir <- colorRampPalette(viridis(7))(255)
+plot(pc1sd3, col=cl_vir)
+title('std')
+
+
+
+
