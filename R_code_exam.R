@@ -34,7 +34,6 @@ install.packages('viridis')
 #setting the working directory to be the folder where we have the downloaded data:
 setwd('C:/Users/carlo/Desktop/MONITORING ECOSYSTEMS/exam')
 
-
 #--------------------
 
 # 02 Investigating the snow seasonal cycle
