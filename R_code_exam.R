@@ -23,7 +23,7 @@ library(ggplot2)
 library(viridis)
 #viridis package -> https://cran.r-project.org/web/packages/viridis/index.html
 
-#N.B. if the packages are not installed use the following code:
+#N.B. if the packages are not installed yet use the following code:
 install.packages('terra')
 install.packages("devtools")
 library(devtools)
@@ -140,6 +140,9 @@ plot(snow[[1]], col=cl_vir, xlab='apr 2020')
 plot(snow[[2]], col=cl_vir, xlab= 'apr 2022')
 plot(snow[[3]], col=cl_vir, xlab= 'apr 2023')
 
+#Seeing how the different years are correlated
+pairs(snow)
+
 #Resetting the plot
 dev.off()
 
@@ -194,8 +197,16 @@ pc1 <- pc$PC1
 pc1sd3 <- focal(pc1, matrix(1/9,3,3), fun=sd)
 cl_vir <- colorRampPalette(viridis(7))(255)
 plot(pc1sd3, col=cl_vir)
-title('std')
+title('std pc1')
 
+#Calculating std on top of 0.8 band to compare the two
+b0.8sd3 <- focal(b0.8[[1]], matrix(1/9,3,3), fun=sd)
+plot(b0.8sd3, col=cl_vir)
+title('std b0.8')
 
+#Plotting the two std graphs
+par(mfrow = c(1,2))
+plot(pc1sd3, col=cl_vir, xlab='std pc1')
+plot(b0.8sd3, col=cl_vir, xlab='std b0.8' )
 
 
