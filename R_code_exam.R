@@ -75,7 +75,7 @@ plot(snow_clusters)
 #!the snow cluster is not the same value for every picture!
 #So the frequencies must be compared with the cluster images to unferstand which is the value correpsonding to snow
 freq_jan <- freq(jan_cluster[[1]])
-snow_jan <- freq_jan[[2,3]]
+snow_jan <- freq_jan[[3]][[2]]
 tot_jan <- ncell(jan_cluster[[1]])
 percentage_jan <- snow_jan * 100 / tot_jan
 percentage_jan
