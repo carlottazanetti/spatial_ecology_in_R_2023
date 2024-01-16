@@ -22,7 +22,7 @@
 
 
 # 01 BEGINNING
-# here I can comment
+# you can make comments like this
 # R as a calculator
 # assign objects
 a <- 2 + 3 
@@ -31,18 +31,19 @@ a * b
 c <- a * b
 c^2
 
-# array
+# arrays:
 sophi <- c(10, 20, 30, 50, 70) 
-#c is a function that concatenates  # All functions have parenthesis
+#c is a function that concatenates  
+# All functions have parenthesis
 paula <- c(100, 500, 600, 1000, 2000) #people
 plot(paula, sophi)
 plot(paula, sophi, xlab='number of people', ylab='microplastics')
-#you can also use other point symbols in the plot
+#you can also use other point symbols in the plot:
+#to change symbol -> https://images.app.goo.gl/iuPoMcv4Cd4aANDA8
 plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20)
-#or increase the dimension of the point
-#https://www.google.com/search?client=ubuntu-sn&hs=yV6&sca_esv=570352775&channel=fs&sxsrf=AM9HkKknoSOcu32qjoErsqX4O1ILBOJX4w:1696347741672&q=point+symbols+in+R&tbm=isch&source=lnms&sa=X&ved=2ahUKEwia9brkm9qBAxVrQvEDHbEYDuMQ0pQJegQIChAB&biw=1760&bih=887&dpr=1.09#imgrc=lUw3nrgRKV8ynM
-plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20, cex=2) #it doubles the original size
-#we can also change the color
+#or increase the dimension of the point:
+plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20, cex=2) 
+#we can also change the color:
 plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20, cex=2, col='blue')
 #package sp
 #cran is where all the packages are stored
@@ -55,6 +56,7 @@ library(sp)
 # code related to population ecology
 # we will use spatstat package for spatial point pattern analysis
 
+#installing packages
 #everytime we take something that is outside of R we need to use the brackets
 install.packages('spatstat')
 library(spatstat) #to check if it has been installed
@@ -63,7 +65,6 @@ library(spatstat) #to check if it has been installed
 #import the data inside the packages
 #the dataset is called 'bei' and it's inside the package spatstat
 #data description: 
-#aways put the link as a comment
 bei 
 
 #plotting the data
@@ -73,48 +74,43 @@ plot(bei, cex=0.5, pch=19)
 bei.extra
 plot(bei.extra)
 
-#how to select only one part of the dataset? There are different manners.like if we want to get elev
+#how to select only one part of the dataset? There are different manners. Like if we want to get elev
 elevation <- bei.extra$elev
 plot(elevation)
-#or
+#or:
 elevation2 <- bei.extra[[1]]
 plot(elevation2)
 
-#passing from points to a continuos surface
+#passing from points to a continuos surface:
 density_map <- density(bei) #it's a function in the spatstat package
 density_map
 plot(density_map)
-#let's put the points on top of the density map
+#let's put the points on top of the density map:
 plot(density_map)
 points(bei, cex=0.2)
 
-#let's change the colours
-cl <- colorRampPalette(c('black','red','orange','yellow'))(100) #using the concatenate function to merge the colours
+#let's change the colours:
+cl <- colorRampPalette(c('black','red','orange','yellow'))(100) 
+#using the concatenate function to merge the colours
 #100 is the gradient: how many colours do you want to pass from one colour from another
 plot(density_map, col=cl)
 #also interesting fact: remember that the yellow is the first colour we see so use it to highlight
 
-#avoid green and red and blue, and never rainbow
-cl <- colorRampPalette(c('black','brown4','burlywood2','beige','azure','aquamarine3','aquamarine4'))(100) #using the concatenate function to merge the colours
-#100 is the gradient: how many colours do you want to pass from one colour from another
+cl <- colorRampPalette(c('black','brown4','burlywood2','beige','azure','aquamarine3','aquamarine4'))(100)
 plot(density_map, col=cl)
 #some famous palette are turbo, inferno and so on
 
-plot(bei.extra)
-elev <- bei.extra[[1]]
-plot(elev)
-
-#what if I want to plot multiple graphs? With multiframe
+#what if I want to plot multiple graphs? With multiframe:
 par(mfrow=c(1,2)) #1 row and 2 columns
 plot(density_map)
 plot(elev)
-#you can also reverse the situation to have one on the top and the other on the botom
+#you can also reverse the situation to have one on the top and the other on the bottom:
 par(mfrow=c(2,1)) 
 plot(density_map)
 plot(elev)
 #you can see that at higher elevations you have a lower amount of trees
 
-#let's say you want 3 plots in a row, the first being trees, then density, then elevation
+#let's say you want 3 plots in a row, the first being trees, then density, then elevation:
 par(mfrow=c(1,3)) 
 plot(bei)
 plot(density_map)
@@ -130,9 +126,10 @@ library(terra) #for spatial functions
 library(sdm)  #species distribution modelling
 https://cran.r-project.org/web/packages/sdm/index.html
 
-file <- system.file('external/species.shp', package='sdm') #it gives you the file name. You write the path and the package it's from. SO the output is the path of the file
+file <- system.file('external/species.shp', package='sdm') 
+#it gives you the file's complete path. You write the path and the package it's from.
 
-#there is a function in terra to pass from the file to the points in the vector in the file
+#there is a function in terra to pass from the file to the points in the vector in the file:
 rana <- vect(file)
 rana
 
@@ -140,16 +137,16 @@ rana$Occurrence #so there is a frog in the point where you have a 1, and there i
 # So it's called presence-absence data bc you are only stating if the species is there, not how many animals (otherwise it would be an abundance data)
 #The absence data has some uncertainty bc maybe there was a frog there but you missed it
 plot(rana) #but this plot represents both the zeros and the ones
-#selecting only the 1 (so where the frogs are present)
+#selecting only the 1 (so where the frogs are present):
 pres <- rana[rana$Occurrence == 1 ,]
 pres$Occurrence
 plot(pres)
-#now let's select the absences
+#now let's select the absences:
 abse <- rana[rana$Occurrence == 0 ,]
 abse$Occurrence
 plot(abse)
 
-#let's plot them one after the other
+#let's plot them one after the other:
 par(mfrow=c(1,2)) #1 row and 2 columns
 plot(pres)
 plot(abse)
@@ -162,27 +159,27 @@ points(abse, col='light blue')
 
 #now let's understand why the rana is distributed like that
 #to do this we use predictors= environmental variables
-#let's see where the file of the predictor is
+#let's see where the file of the predictor is:
 elev <- system.file('external/elevation.asc', package='sdm') 
-elevmap <- rast(elev) #from terra
-#instead of vect, now we are dealing with pixels
+elevmap <- rast(elev)
+#instead of vect, now we are dealing with pixels. Rast is a function from terra
 plot(elevmap)
 points(pres)
 #so the rana is avoiding the valleys (maybe it's too hot?) and also avoiding high altitudes (maybe too cold)
 
-#let's do the same with temperature
+#let's do the same with temperature:
 temp <- system.file('external/temperature.asc', package='sdm') 
 tempmap <- rast(temp) #from terra
 plot(tempmap)
 points(pres)
 
-#same with cover of vegetation
+#same with cover of vegetation:
 veg <- system.file('external/vegetation.asc', package='sdm') 
 vegmap <- rast(veg) #from terra
 plot(vegmap)
 points(pres)
 
-#same with precipitation
+#same with precipitation:
 prec <- system.file('external/precipitation.asc', package='sdm') 
 precmap <- rast(prec) #from terra
 plot(precmap)
@@ -202,12 +199,12 @@ points(pres)
 
 
 # 03.1 COMMUNITY MULTIVARIANCE ANALYSIS
-library(vegan)
+library(vegan) #for vegetation analysis
 https://cran.r-project.org/web/packages/vegan/index.html
 
 data(dune) #it recalls the data so you can use them
-#let's take a look at the data
-dune #the numbers erpresent the number of individuals for each species inside the plot 
+#let's take a look at the data:
+dune #the numbers represents the number of individuals for each species inside the plot (so different locations)
 #another way to visualize the data is using head() that shows only the first 6 rows
 head(dune)
 #tail() shows you only the last rows
@@ -216,7 +213,7 @@ head(dune)
 ord <- decorana(dune)
 #we are interested in finding the length of the range of each dimension
 summary(ord) #and look ar Axis lengths
-#ldc is the length of eaqch one
+#ldc is the length of each one
 ldc1 <- 3.7004
 ldc2 <- 3.1166
 ldc3 <- 1.30055
@@ -224,7 +221,7 @@ ldc4 <- 1.47888
 
 total = ldc1 + ldc2 + ldc3 + ldc4
 
-#so you can see the percentage
+#so you can see the percentage:
 pldc1 = ldc1 * 100 / total
 pldc2 = ldc2 * 100 / total
 pldc3 = ldc3 * 100 / total
@@ -237,10 +234,9 @@ pldc2
 pldc1 + pldc2 
 #they represent 71% so we can discard the others, also seeing stuff in 2D is always convenient
 
-plot(ord)
-#the numbers are the original plots , and you can see the names of the species: some species like to stay together
+plot(ord) #plots the data using pc1 and pc2 as axis
+#the numbers are the locations, and you can see the names of the species: some species like to stay together
 #the part in the bottom left is dedicated to grassland. 
-#the 2 dimensions are the x in multivariant analysis
 #but species are also related in time, not only in space
 
 #--------------------
@@ -258,29 +254,28 @@ head(kerinci) #to see the first 6 lines
 summary(kerinci)
 
 #let's look at the movements of the tiger during the day
-#so let's select the tiger data
+#so let's select the tiger data:
 tiger <- kerinci[kerinci$Sps == 'tiger',] #sps is the column with the species
 
 #let's pass from a linear time to a circular time
 kerinci$TimeRad <- kerinci$Time * 2 * pi
-#ora hai un'altra colonna col tempo in radianti
+#now we have another column with the time in radiants
 
-tiger <- kerinci[kerinci$Sps == 'tiger',] #sps is the column with the species
 timetig <- tiger$TimeRad
 
 densityPlot(timetig, rug=TRUE) #so you can see the histogram and the times during the day where most tigers pass
 #rug smooths out the curve
 
-#select only the data on macaques
+#select only the data on macaques:
 macaque <- kerinci[kerinci$Sps == 'macaque',] #sps is the column with the species
 timemac <- macaque$TimeRad
 densityPlot(timemac, rug=TRUE)
 
-#let's overlap them
+#let's overlap them:
 overlapPlot(timetig, timemac)
 #the colored part is the overlap
 
-# adding a legend
+#adding a legend:
 legend('topright', c("Tigers", "Macaques"), lty=c(1,2), col=c("black","blue"), bty='n')
 
 #--------------------
@@ -292,31 +287,31 @@ legend('topright', c("Tigers", "Macaques"), lty=c(1,2), col=c("black","blue"), b
 
 # to install packages from the CRAN
 install.packages("devtools")
-library(devtools) # packages in R are also called libraries
+library(devtools) 
 #https://cran.r-project.org/web/packages/devtools/index.html
 
-# install the imageRy package from GitHub
+# install the imageRy package from GitHub:
 devtools::install_github("ducciorocchini/imageRy")
 
 library(imageRy)
 library(terra)
 
-#list the data
-im.list()#lists the imagrey data
+#list the data:
+im.list()
 
 #let's use the blue band (it's band 2)
 b2 <- im.import("sentinel.dolomites.b2.tif")
 b2 
 
-# Let's change the color
+# Let's change the color:
 cl <- colorRampPalette(c("black", "gray", "light gray")) (100)
 plot(b2, col = cl)
 
-# importing the green band
+# importing the green band:
 b3 <- im.import("sentinel.dolomites.b3.tif")
 plot(b3, col = cl)
 
-# importing the red band 
+# importing the red band:
 b4 <- im.import("sentinel.dolomites.b4.tif")
 plot(b4, col = cl)
 
@@ -332,12 +327,12 @@ plot(b4, col = cl)
 plot(b8, col = cl)
 dev.off() # it closes the devices
 
-# stack images all together
+# stack images all together:
 stacksent <- c(b2, b3, b4, b8)
 
 plot(stacksent, col = cl)
 
-# to plot just one layer from the stack we can use the number of the "element" (layer)
+# to plot just one layer from the stack we can use the number of the "element" (layer):
 plot(stacksent[[4]], col = cl)
 
 # Plot in a multiframe the bands with different color ramps
@@ -363,7 +358,7 @@ im.plotRGB(stacksent, r=3, g=2, b=1) # the number refers to the index of the ele
 #but this is not such a nice image, everything is dark
 
 #we are going to sacrifice ome of the bands, we move up by one so we sacrifice blue for example 
-im.plotRGB(stacksent, r=4, g=3, b=2) # the number refers to the index of the element 
+im.plotRGB(stacksent, r=4, g=3, b=2) 
 #now all the elements that reflect in the NIR will be visualized as red (so vegetation)
 #the dark red is broad leaf whereas the light red is pasture, water is black , or also the shadow of the mountain is black
 
@@ -378,9 +373,7 @@ im.plotRGB(stacksent, r=3, g=2, b=4)
 #There is a function to do this for all the bands
 #you can do this with all the variables you want
 pairs(stacksent)
-#if you have 4 elements, you will have 4x3/2=6 number of correlations, all the distances. 
 #you have the graphs, then the pearson coefficient
-#è tipo battaglia navale, guarda ogni grafico verde è una banda, poi incrocia la riga con la colonna di due bande diverse e vedi il loror pearson coefficient
 #the values on the axes are reflectance
 #the green histogram is the frequency of every value of reflectance: in almost all the bands you have more values with low reflectance.
 
@@ -408,16 +401,13 @@ im.plotRGB(m1992, r=2, g=1, b=3)
 m2006 <- im.import("matogrosso_ast_2006209_lrg.jpg")
 im.plotRGB(m2006, r=2, g=3, b=1)
 #use this to underline the deforetation
-# the rio peixoto should be black (it's water) but it's actully the same color of the bare soil because of the high amount of sediments
+#the rio peixoto should be black (it's water) but it's actully the same color of the bare soil because of the high amount of sediments
 
 # build a multiframe with 1992 and 2006 images
 par(mfrow = c(1, 2))
 im.plotRGB(m1992, r=2, g=3, b=1)
 im.plotRGB(m2006, r=2, g=3, b=1) 
 plot(m1992[[1]])
-
-# most images ar sotred in 8bits to decrease to weight of the info
-# to know how much info you can store you need to elevate 2 to the number of pixels that yu have
 
 # DVI = NIR - RED, we use different band but in the same image
 # The calculation is done pixel by pixel
@@ -451,14 +441,14 @@ ndvi2006a <- im.ndvi(m2006, 1, 2) # the numbers refer to the bands you want to u
 #--------------------
 
 # 06 TIMESERIES
-#time series analysis
 
+#time series analysis
 library(imageRy)
 library(terra)
 
 im.list()
 
- #importing data (EN= European Nitrogen)
+#importing data (EN= European Nitrogen)
 EN01 <- im.import("EN_01.png") #it's the situation in january
 EN13 <- im.import("EN_13.png") #march
 
@@ -467,7 +457,7 @@ im.plotRGB.auto(EN01) #it will directly plot an rgb image using the first 3 band
 im.plotRGB.auto(EN13)
 
 dev.off()
-#Let's make the difference between them
+#Let's make the difference between them:
 diff = EN01[[1]] - EN13[[1]] #using the first band
 plot(diff)
 #let's change the colormap
@@ -476,7 +466,6 @@ coldiff <- colorRampPalette(c('blue','white', 'red'))(100)
 plot(diff,col=coldiff)
 #red= higher NO2 concentration in jan
 
-#copernicus global land servi look it up to download data
 #let's work with temperature in Greenland
 im.list()
 g2000 <- im.import("greenland.2000.tif"  )
@@ -506,7 +495,7 @@ diffg = stackg[[1]] - stackg[[4]]
 plot(diffg, col=coldiff)
 #or diffg= g2000 - g2015
 
-#let's put the first value of stack in Red (2000), the second in green and the third in blue
+#let's put the first value of stack in Red (2000), 2005 in green and 2010 in blue
 im.plotRGB(stackg, r=1, g=2, b=3)
 #in the west part you have red, so high T in 2000. 
 #In the north u have green, so T was higher in 2005
@@ -516,7 +505,6 @@ im.plotRGB(stackg, r=1, g=2, b=3)
 
 # 07 EXTERNAL DATA
 #external data
-
 library(terra)
 
 #set working directory (where the file is)
@@ -539,7 +527,6 @@ najadif=naja[[1]]-najaaug[[1]]
 cl <- colorRampPalette(c('brown','grey','orange'))(100)
 plot(najadif, col=cl)
 #so the points where the highest difference are in orange. 
-#U should do this in your project
 
 #some other data
 crater <- rast('tenoumer_ast_2008024_lrg.jpg') #ignora il messaggio di avvertimento
@@ -548,10 +535,10 @@ plotRGB(crater, r=1, g=2, b=3)
 #--------------------
 
 #08 COPERNICUS DATA
-#with copernicus u can search for a specific year
+#with copernicus you can search for a specific year
 install.packages('ncdf4')
 #https://cran.r-project.org/web/packages/ncdf4/index.html
-# https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
+#copernicus site -> https://land.copernicus.vgt.vito.be/PDF/portal/Application.html#Home
 
 library(ncdf4)
 library(terra)
@@ -591,7 +578,7 @@ sun <- im.import('Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg')
 sunc <- im.classify(sun, num_clusters=3)
 #it classifies in 3 classes: the higher emount of energy is the 1st one, and so on. For classification we use
 #a random number of pixel, so this might change slightly everytime we run the code. But the overall pattern
-#should be the same. Also the class with the highest energy could be the number 2 or 3. U should always compare
+#should be the same. Also the class with the highest energy could be the number 2 or 3. You should always compare
 #with the rgb
 
 plot(sunc)
@@ -688,14 +675,13 @@ plot(sd_glacier2,col=cl_vir)
 par(mfrow = c(1, 2))
 plot(sd_glacier, col=cl_vir)
 plot(sd_glacier2,col=cl_vir)
-#with the 3x3 it's a very local calculation, u can see subtle differences. If u enlarge the moving window, u will enlarge the number of pixels
-#so this is why u have a higher variability
+#with the 3x3 it's a very local calculation, you can see subtle differences. If you enlarge the moving window, you will enlarge the number of pixels
 
 #original and 7x7
 par(mfrow = c(1, 2))
 im.plotRGB(glacier, r=2, g=1, b=3)
 plot(sd_glacier2,col=cl_vir)
-#u have a high std in boundaries, bc the pixel on the boundary will be different from the surrounding ones. 
+#you have a high std in boundaries, bc the pixel on the boundary will be different from the surrounding ones. 
 #so it can indicate high geological variability
 
 #--------------------
@@ -716,10 +702,10 @@ pairs(sent)
 #the graph is like a disk, so high correlation. The nir is less correlated to the red one, the graph is a mess and p is like 0.3.
 #don't look at NA, is a constant
 
-#perform PCA on sent
+#perform PCA on sent:
 sentpc <-  im.pca2(sent)
 #if it doesn't work use im.pca()
-#it gives u the percentage of each pc. The first oc is 77
+#it gives you the percentage of each pc. The first pc is 77%
 #in this case there is no meaning for the color, it's jsut a scale
 
 pc1 <- sentpc$PC1
@@ -731,7 +717,7 @@ plot(pc1, col=cl_vir)
 #calculating std on top of pc1
 pc1sd3 <- focal(pc1, matrix(1/9,3,3), fun=sd)
 plot(pc1sd3, col=cl_vir)
-#so instead of having to choose a specific band, you just do it on the first pc
+#so instead of having to choose a specific band, you just do it on the first pc, since it explains 77% of the variability
 
 
 pc1sd7 <- focal(pc1, matrix(1/49,7,7), fun=sd)
@@ -739,8 +725,8 @@ plot(pc1sd7, col=cl_vir)
 
 par(mfrow = c(2,3))
 im.plotRGB(sent, 2, 1, 3)
-plot(sd_glacier, col=cl_vir) #sd in NIR that we did last time
-plot(sd_glacier2,col=cl_vir) #sd in NIR that we did last time
+plot(sd_glacier, col=cl_vir) #sd in NIR that we did last time with 3x3 moving window
+plot(sd_glacier2,col=cl_vir) #sd in NIR that we did last time with 7x7 moving window
 plot(pc1, col=cl_vir)
 plot(pc1sd3, col=cl_vir)
 plot(pc1sd7, col=cl_vir)
@@ -764,7 +750,7 @@ density_map <- density(bei) #function of spatstat package to pass from points to
 plot(density_map)
 points(bei, cex=0.2, col='blue') #to plot density map with points on top
 par(mfrow=c(1,2)) # to plot multiple graphs in a plot. 1 row and 2 columns 
-system.file('external/species.shp', package='sdm') #you input the path in the package and it gives you the file name
+system.file('external/species.shp', package='sdm') #you input the path in the package and it gives you the file's complete path
 rana <- vect(file) #function of terra to pass from the file to the points in the vector of a file
 elevmap <- rast(elev) #from terra, instead of vect, now we are dealing with pixels
 dev.off() #it closes all the graphs going on. It resets
