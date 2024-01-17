@@ -33,22 +33,23 @@ c^2
 
 # arrays:
 sophi <- c(10, 20, 30, 50, 70) 
+
 #c is a function that concatenates  
 # All functions have parenthesis
 paula <- c(100, 500, 600, 1000, 2000) #people
 plot(paula, sophi)
 plot(paula, sophi, xlab='number of people', ylab='microplastics')
+
 #you can also use other point symbols in the plot:
 #to change symbol -> https://images.app.goo.gl/iuPoMcv4Cd4aANDA8
 plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20)
+
 #or increase the dimension of the point:
 plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20, cex=2) 
+
 #we can also change the color:
 plot(paula, sophi, xlab='number of people', ylab='microplastics', pch=20, cex=2, col='blue')
-#package sp
-#cran is where all the packages are stored
-install.packages('sp')
-library(sp)
+
 
 #--------------------
 
@@ -57,7 +58,7 @@ library(sp)
 # we will use spatstat package for spatial point pattern analysis
 
 #installing packages
-#everytime we take something that is outside of R we need to use the brackets
+#everytime we take something that is outside of R we need to use the quotation marks
 install.packages('spatstat')
 library(spatstat) #to check if it has been installed
 #https://cran.r-project.org/web/packages/spatstat/index.html
@@ -85,16 +86,17 @@ plot(elevation2)
 density_map <- density(bei) #it's a function in the spatstat package
 density_map
 plot(density_map)
+
 #let's put the points on top of the density map:
 plot(density_map)
 points(bei, cex=0.2)
 
 #let's change the colours:
 cl <- colorRampPalette(c('black','red','orange','yellow'))(100) 
-#using the concatenate function to merge the colours
-#100 is the gradient: how many colours do you want to pass from one colour from another
+#using the concatenate function to merge the colors
+#100 is the gradient: how many colors do you want to pass from one color from another
 plot(density_map, col=cl)
-#also interesting fact: remember that the yellow is the first colour we see so use it to highlight
+#also interesting fact: remember that the yellow is the first color we see so use it to highlight
 
 cl <- colorRampPalette(c('black','brown4','burlywood2','beige','azure','aquamarine3','aquamarine4'))(100)
 plot(density_map, col=cl)
@@ -104,6 +106,7 @@ plot(density_map, col=cl)
 par(mfrow=c(1,2)) #1 row and 2 columns
 plot(density_map)
 plot(elev)
+
 #you can also reverse the situation to have one on the top and the other on the bottom:
 par(mfrow=c(2,1)) 
 plot(density_map)
@@ -136,7 +139,9 @@ rana
 rana$Occurrence #so there is a frog in the point where you have a 1, and there is no frog where you have a 0.
 # So it's called presence-absence data bc you are only stating if the species is there, not how many animals (otherwise it would be an abundance data)
 #The absence data has some uncertainty bc maybe there was a frog there but you missed it
+
 plot(rana) #but this plot represents both the zeros and the ones
+
 #selecting only the 1 (so where the frogs are present):
 pres <- rana[rana$Occurrence == 1 ,]
 pres$Occurrence
@@ -212,7 +217,7 @@ head(dune)
 #decorana() is the Detrended Correspondence Analysis and Basic Reciprocal Averaging. It's from Vegan
 ord <- decorana(dune)
 #we are interested in finding the length of the range of each dimension
-summary(ord) #and look ar Axis lengths
+summary(ord) #and look at Axis lengths
 #ldc is the length of each one
 ldc1 <- 3.7004
 ldc2 <- 3.1166
@@ -237,7 +242,6 @@ pldc1 + pldc2
 plot(ord) #plots the data using pc1 and pc2 as axis
 #the numbers are the locations, and you can see the names of the species: some species like to stay together
 #the part in the bottom left is dedicated to grassland. 
-#but species are also related in time, not only in space
 
 #--------------------
 
@@ -283,7 +287,6 @@ legend('topright', c("Tigers", "Macaques"), lty=c(1,2), col=c("black","blue"), b
 # 04 REMOTE SENSING DATA VISUALISATION
 # This is a script to visualize satellite data
 # colors are representing the amount of reflectance of a pixel in a certain wavelenght
-# plants fro example use mostly red light to carry out photosynthesis
 
 # to install packages from the CRAN
 install.packages("devtools")
@@ -348,16 +351,15 @@ plot(b4, col = cl4)
 plot(b8, col = cl8)
 
 # Using the RGB space
-# stacksent:
 # band2 blue element 1, stacksent[[1]]
 # band3 green element 2, stacksent[[2]]
 # band4 red element 3, stacksent[[3]]
-# band8 NIR element 4), stacksent[[4]]
+# band8 NIR element 4, stacksent[[4]]
 #so you get the pic how you'd see it from space
 im.plotRGB(stacksent, r=3, g=2, b=1) # the number refers to the index of the element 
 #but this is not such a nice image, everything is dark
 
-#we are going to sacrifice ome of the bands, we move up by one so we sacrifice blue for example 
+#we are going to sacrifice one of the bands, we move up by one so we sacrifice blue for example 
 im.plotRGB(stacksent, r=4, g=3, b=2) 
 #now all the elements that reflect in the NIR will be visualized as red (so vegetation)
 #the dark red is broad leaf whereas the light red is pasture, water is black , or also the shadow of the mountain is black
@@ -490,7 +492,7 @@ plot(g2015, col=colg)
 stackg <- c(g2000, g2005, g2010, g2015)
 plot(stackg, col=colg)
 
-#exercise: differece btwn the first and final eleent of stack
+#exercise: differece btwn the first and final element of stack
 diffg = stackg[[1]] - stackg[[4]]
 plot(diffg, col=coldiff)
 #or diffg= g2000 - g2015
@@ -510,12 +512,12 @@ library(terra)
 #set working directory (where the file is)
 setwd('C:/Users/carlo/Downloads') #remember not to use \
 
-naja <- rast('najafiraq_etm_2003140_lrg.jpg') #ignora il messaggio di avvertimento
+naja <- rast('najafiraq_etm_2003140_lrg.jpg') #ignore the warning message
 
 plotRGB(naja, r=1, g=2, b=3)
 
 #let's download another pic
-najaaug <- rast('najafiraq_oli_2023219_lrg.jpg') #ignora il messaggio di avvertimento
+najaaug <- rast('najafiraq_oli_2023219_lrg.jpg') 
 plotRGB(najaaug, r=1, g=2, b=3)
 
 par(mfrow=c(2,1))
@@ -529,7 +531,7 @@ plot(najadif, col=cl)
 #so the points where the highest difference are in orange. 
 
 #some other data
-crater <- rast('tenoumer_ast_2008024_lrg.jpg') #ignora il messaggio di avvertimento
+crater <- rast('tenoumer_ast_2008024_lrg.jpg')
 plotRGB(crater, r=1, g=2, b=3)
 
 #--------------------
@@ -747,12 +749,14 @@ cl <- colorRampPalette(c('black','red','orange','yellow'))(100) #to create e pal
 elevation <- bei.extra$elev #to only select elev in bei.extra
 elevation2 <- bei.extra[[1]] #to only select elev un bei.extra
 density_map <- density(bei) #function of spatstat package to pass from points to continuous density map
+
 plot(density_map)
 points(bei, cex=0.2, col='blue') #to plot density map with points on top
+
 par(mfrow=c(1,2)) # to plot multiple graphs in a plot. 1 row and 2 columns 
 system.file('external/species.shp', package='sdm') #you input the path in the package and it gives you the file's complete path
 rana <- vect(file) #function of terra to pass from the file to the points in the vector of a file
-elevmap <- rast(elev) #from terra, instead of vect, now we are dealing with pixels
+elevmap <- rast(elev) #from terra, instead of vect, when we are dealing with pixels
 dev.off() #it closes all the graphs going on. It resets
 data(dune) #you recall the data 'dune' inside the package vegan
 #head() #only shows you the first 6 rows of the dataset
@@ -773,14 +777,6 @@ data.frame(classes, y1992, y2006)  #formatting the data into a table
 ggplot(results, aes(x=classes, y=y1992, color=classes)) + geom_bar(stat="identity", fill="white") #geom_bar counts the number of cases at each x position
 sd_glacier <- focal(nir, matrix(1/9, 3, 3), fun=sd) #the matrix describes the dimensions of the moving window: composed by 9 pixels (1/9) distributed as 3 by 3. fun calls he function
 sentpc <-  im.pca2(sent) #it gives you the variance explained by every pc
-sdstack <- c(sd_glacier,sd_glacier2,pc1sd3,pc1sd7) #stack graphs in the same plot
-names(sdstack) <- c('sd3', 'sd7', 'pc1sd3', 'pc1sd7') #corresponding titles
-
-
-
-
-
-
 
 
 
