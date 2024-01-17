@@ -1,0 +1,189 @@
+\documentclass{beamer}
+\usepackage{listings}
+% to choose the documentclass and theme
+% https://mpetroff.net/files/beamer-theme-matrix/
+\usetheme{Szeged} 
+\usecolortheme{beaver}
+\usepackage{color}
+% % block styles
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\title{Exploring the variability of snow in Iceland}
+ \subtitle{focusing on Fagradalsfjall area }
+ \author{Carlotta Zanetti}
+ \date{\small{ Link to my GitHub account:\\ \url{https://github.com/carlottazanetti}}}
+ \institute{Alma Mater Studiorum UniBO}
+
+ 
+
+ \begin{document}
+\maketitle
+
+\AtBeginSection[] 
+{
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+\section{Dataset}
+
+\begin{frame}{Sentinel 2 dataset}
+    \small{Why Sentinel 2 dataset?}
+     \begin{itemize}
+  \item Easy to download from the Copernicus website \url{https://dataspace.copernicus.eu/browser/}
+  \item Good resolution 
+  %10-60 m
+  \item Possibility to look at different channels directly from the website
+ \end{itemize}
+ \includegraphics[width=0.3\textwidth]{2022-04-19-00_00_2022-04-19-23_59_Sentinel-2_L2A_Highlight_Optimized_Natural_Color_.jpg}
+ \includegraphics[width=0.3\textwidth]{2022-04-19-00_00_2022-04-19-23_59_Sentinel-2_L2A_Custom_script (1).jpg}
+ \includegraphics[width=0.3\textwidth]{2022-04-19-00_00_2022-04-19-23_59_Sentinel-2_L2A_Custom_script.jpg}
+\end{frame}
+
+
+\section{Variability of snow throughout the seasons}
+
+\begin{frame}{Importing images}
+    \small{For each month an image was picked to be representative of the 
+    snow cover.}
+    \smallskip
+        \begin{columns}
+        \column{0.5\textwidth}
+        \small{The images come from different years since the presence of clouds didn't allow to collect all the data from the same year. \\Also no data was available for December.}
+        \column{0.5\textwidth}
+        \centering
+        \includegraphics[width=.99\textwidth]{2023-11-10-00_00_2023-11-10-23_59_Sentinel-2_L2A_Highlight_Optimized_Natural_Color_.jpg}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+\includegraphics[width=0.24\textwidth]{jan.jpg}
+ \includegraphics[width=0.24\textwidth]{feb.jpg}
+ \includegraphics[width=0.24\textwidth]{march.jpg}
+ \includegraphics[width=0.24\textwidth]{apr.jpg}
+ \includegraphics[width=0.24\textwidth]{may.jpg}
+ \includegraphics[width=0.24\textwidth]{june.jpg}
+ \includegraphics[width=0.24\textwidth]{july.jpg}
+ \includegraphics[width=0.24\textwidth]{aug.jpg}
+ \includegraphics[width=0.24\textwidth]{sept.jpg}
+ \includegraphics[width=0.24\textwidth]{oct.jpg}
+ \includegraphics[width=0.24\textwidth]{nov.jpg} \\
+ \tiny{In this case I used an RGB with bands 0.4, 1.6, 2.1 microns to differentiate snow (red) from water clouds (white)}
+\end{frame}
+
+\begin{frame}{Snow detection}
+    \small{After importing the images with the function rast(), im.classify() from package imageRy was used to classify the images in four levels of energy. }
+    \lstinputlisting[basicstyle=\ttfamily\scriptsize,language=R, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{classify.r} 
+    \includegraphics[width=0.9\textwidth]{snow_clusters.jpeg} 
+\end{frame}
+
+\begin{frame}{Snow cover}
+    \small{For each image with some snow cover, the level corresponding to snow was detected and the percentage of pixels were calculated}
+     \lstinputlisting[basicstyle=\ttfamily\scriptsize, language=R, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{precentage_snow.r} 
+\end{frame}
+
+\begin{frame}{Snow cover}
+    \small{The results were plotted in a histogram}
+    \lstinputlisting[basicstyle=\ttfamily\scriptsize,language=R, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{histogram.r} 
+   \centering
+   \includegraphics[width=0.8\textwidth]{snow coverage seasonal cycle.jpeg}
+\end{frame}
+
+
+\section{Variability of snow throughout the years}
+\begin{frame}{Importing images}
+    \small{In this case, pictures from April 2020, 2022, 2023 were taken.}
+    \lstinputlisting[basicstyle=\ttfamily\scriptsize,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{years_variability.r} 
+    \includegraphics[width=0.99\textwidth]{snow_cover2.jpeg}
+\end{frame}
+
+\begin{frame}{Correlation}
+    \lstinputlisting[basicstyle=\ttfamily\tiny,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{pairs.r} 
+    \tiny{Using the function pairs() to investigate the correlation between different years. Let's analyse the reflectances:}
+    \begin{itemize}
+     \item Pixels with low reflectance represent the ocean
+     \item Pixels with high reflectance represent snow
+   \end{itemize}   
+   \includegraphics[width=0.99\textwidth]{correlations.jpeg}
+\end{frame}
+
+\begin{frame}{Snow differences}
+    \begin{columns}
+        \column{0.35\textwidth}
+        \centering
+        \small{To highlight the variability between the year 2020 and 2023, their difference was plotted}
+        \lstinputlisting[basicstyle=\ttfamily\tiny,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{diff.r} 
+        \column{0.65\textwidth}
+        \centering
+        \includegraphics[width=.99\textwidth]{snow_diff.jpeg}
+    \end{columns}
+    \begin{columns}
+        \column{0.4\textwidth}
+        \centering
+        \small{An RGB with 2020 in the red channel, 2022 in the green channel and 2023 in the blue channel shows where the contribution of each year is stronger}
+        \lstinputlisting[basicstyle=\ttfamily\tiny,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{rgbdiff.r} 
+        \column{0.65\textwidth}
+        \centering
+        \includegraphics[width=.99\textwidth]{snow_coverRGB.jpeg}
+    \end{columns}
+\end{frame}
+
+
+\section{A remarkable phenomenon: Fagradalsfjall volcanic eruption}
+
+\begin{frame}{False color RGB}
+    \small{To analyse the Fagradalsfjall volcanic eruption occurred in 2010, I decided to create an RGB using bands 2.1, 0.8 and 0.6 microns. This false color RGB is used to spot volcanic eruptions and fires:}
+     \begin{columns}
+        \column{0.45\textwidth}
+        \centering
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=.99\textwidth]{screenshotfire.png}
+            \caption{example of a fire over Georgia spotted with Modis}
+        \end{figure}
+        \column{0.65\textwidth}
+        \begin{itemize}
+  \item Lava (or fire) will appear red due to the strong reflectivity in the 2.1 band
+  \item Vegetation will appear green due to the strong reflectivity in the 0.8 channel, hence burnt areas will appear brown 
+  \item The smoke plume wil appear cyan, due to the high reflectivity in the visible band
+ \end{itemize}    
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Importing images}
+  \includegraphics[width=.99\textwidth]{Rplot.jpeg}
+\end{frame}
+
+\begin{frame}{Creating the RGB}
+   \lstinputlisting[basicstyle=\ttfamily\tiny,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{falsergb.r} 
+  \centering
+  \includegraphics[width=.8\textwidth]{iceland_eruption_falseRGB.jpeg}
+\end{frame}
+
+\begin{frame}{Standard deviation}
+  \small{How to decide which band to pick to calculate the standard deviation?\\
+  We can perform the Principal Component Analysis to retrieve the pc1, which will be the layer that explains variability the most.}
+  \lstinputlisting[basicstyle=\ttfamily\tiny,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{pca.r}  
+  \includegraphics[width=.8\textwidth]{Screenshot 2024-01-15 123053.png}\\
+  \small{By looking at the table, it's easy to recognise which band contributes the most to pc1: it's the 0.8 band.}
+\end{frame}
+
+\begin{frame}{Standard deviation}
+  \tiny{The standard deviation is calculated using the function focal() combined with the std function. In this case the std is calculated on a moving window of 3x3 pixels}
+  \lstinputlisting[basicstyle=\ttfamily\tiny,language=R, commentstyle=\color{darkgray}, frame=single, stringstyle=\color{blue}, backgroundcolor=\color{lightgray}]{std.r}   
+  \tiny{The std can also be calculated on the 0.8 band}
+  \begin{figure}
+    \centering
+    \includegraphics[width=.8\textwidth]{std.jpeg}
+  \end{figure}
+  \tiny{As expected, the two images are similar, since band 0.8 contributes the most to pc1. Values of high std can generally be found on boundaries, indicating high geological variability. }
+\end{frame}
+
+\begin{frame}
+\begin{center}
+{\fontsize{30}{40}\selectfont Thank you!}
+\end{center}
+\end{frame}
+\end{document}
